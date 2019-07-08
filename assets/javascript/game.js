@@ -29,7 +29,6 @@ document.onkeypress= function (event) {
   }
 
   var html =
-    '<p><h1>The Psychic Game</h1></p>' +
     '<p>Guess what letter I am thinking of!</p>' +
     '<p>Wins: ' + wins + '</p>' +
     '<p>Losses: ' + losses + '</p>' +
