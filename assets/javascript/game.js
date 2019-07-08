@@ -1,70 +1,40 @@
-var compChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var wins = 0;
+var losses = 0;
+var guessLeft = 9;
+var guessMade = [];
+var userGuess = document.onkeypress;
+var compGuess = letters[Math.floor(Math.random() * letters.length)];
 
-        var wins = 0;
-        var losses = 0;
-        var numGuesses = 9;
-        var guessChoices = [];
-        
-        //added array for pressed keys
-        var pressed = [];
+document.onkeypress= function (event) {
+  
+  userGuess = event.key;
+  guessMade.push(userGuess);
 
+  if (compGuess == userGuess) {
+    wins++;
+    guessLeft = 9;
+    guessMade = [];
+  }
+  
+  if (compGuess != userGuess) {
+    guessLeft--;
+    
+  }
 
-        var compGuess=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+  if (guessLeft == 0) {
+    losses++;
+    guessLeft = 9;
+    guessMade = [];
+  }
 
-        function newLetter(){
-            compGuess = compChoices[Math.floor(Math.random() * compChoices.length)];
-            console.log(compGuess);
-        }
-
-        //calling the function to start here
-        newLetter();
-
-        document.onkeypress = function(event) {
-
-            var userGuess = event.key;
-            var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-            
-
-            console.log(userGuess)
-            //in this case, the event key will appear to the page
-            document.getElementById('letters').innerHTML += userGuess + ", ";
-
-                if(compGuess == userGuess){
-                console.log("one point")
-                //now every time a user get a point, there will be a new letter because of the function
-                
-                newLetter();
-                }
-                
-                else{
-                console.log("try again")
-                }
-        
-        var options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-            
-
-            if (options.indexOf(userGuess) > -1) {
-
-                if (userGuess === compGuess) {
-                     wins++;
-                     numGuesses = 9;
-                     guessChoices = [];
-                }
-
-            if (userGuess !== compGuess) {
-                     numGuesses --;
-                     guessChoices.push(userGuess);
-                }
-
-            if (numGuesses === 0) {
-
-                     numGuesses = 9;
-                     losses ++;
-                     guessChoices = [];
-
-               
-                }
-
-            }
-
-        };
+  var html =
+    '<p><h1>The Psychic Game</h1></p>' +
+    '<p>Guess what letter I am thinking of!</p>' +
+    '<p>Wins: ' + wins + '</p>' +
+    '<p>Losses: ' + losses + '</p>' +
+    '<p>Guesses Left: ' + guessLeft + '</p>' +
+    '<p>Your Guesses So Far: ' + guessMade + '</p>';
+    
+    document.getElementById("container").innerHTML = html;
+}
